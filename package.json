@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
+    "isotope-layout": "^3.0.3"
+  }
+}
