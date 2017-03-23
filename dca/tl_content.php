@@ -11,11 +11,11 @@ $GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = [
 /**
  * Add fields
  */
-$GLOBALS['TL_DCA']['tl_content']['fields']['elementsFilter_filter'] = [
-    'label'            => &$GLOBALS['TL_LANG']['tl_content']['elementsFilter_filter'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['elementsFilter_filters'] = [
+    'label'            => &$GLOBALS['TL_LANG']['tl_content']['elementsFilter_filters'],
     'exclude'          => true,
-    'inputType'        => 'select',
+    'inputType'        => 'checkbox',
     'options_callback' => ['ElementsFilter\EventListener\ContentDataContainer', 'getFilters'],
-    'eval'             => ['includeBlankOption' => true, 'tl_class' => 'clr'],
-    'sql'              => "varchar(255) NOT NULL default ''",
+    'eval'             => ['multiple' => true, 'tl_class' => 'clr'],
+    'sql'              => "blob NULL",
 ];

@@ -22,7 +22,7 @@ class ContentDataContainer
 
             $GLOBALS['TL_DCA']['tl_content']['palettes'][$k] = str_replace(
                 'protected;',
-                'protected;{elementsFilter_legend},elementsFilter_filter;',
+                'protected;{elementsFilter_legend},elementsFilter_filters;',
                 $v
             );
         }

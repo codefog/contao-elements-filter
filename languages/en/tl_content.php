@@ -3,9 +3,9 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_content']['elementsFilter_filter'] = [
-    'Element filter',
-    'Here you can choose the element filter.',
+$GLOBALS['TL_LANG']['tl_content']['elementsFilter_filters'] = [
+    'Element filters',
+    'Here you can choose the element filters.',
 ];
 
 /**
