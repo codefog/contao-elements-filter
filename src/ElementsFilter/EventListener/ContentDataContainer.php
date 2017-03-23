@@ -38,7 +38,9 @@ class ContentDataContainer
         $filters = [];
 
         foreach (FilterHelper::getArticleFilters(CURRENT_ID) as $filter) {
-            $filters[$filter['value']] = $filter['label'];
+            if ($filter['value']) {
+                $filters[$filter['value']] = $filter['label'];
+            }
         }
 
         return $filters;

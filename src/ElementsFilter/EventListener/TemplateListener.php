@@ -53,13 +53,13 @@ class TemplateListener
     private function handleElementTemplate(Template $template)
     {
         if (TL_MODE !== 'FE'
-            || stripos($template->getName(), 'ce_') !== 0
+            || (stripos($template->getName(), 'ce_') !== 0 && stripos($template->getName(), 'rsce_') !== 0)
             || !FilterHelper::isArticleEnabled($template->pid)
             || !$template->elementsFilter_filter
         ) {
             return;
         }
 
-        $template->class = trim($template->class.' elements-filter-'.$template->elementsFilter_filter);
+        $template->class = trim($template->class.' elements-filter elements-filter-'.$template->elementsFilter_filter);
     }
 }
