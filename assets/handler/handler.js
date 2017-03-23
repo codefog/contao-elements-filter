@@ -33,7 +33,7 @@
             return;
         }
 
-        var elementsParent = elementsWrapper.find('.elements-filter').wrapAll('<div/>').eq(0).parent();
+        var elementsParent = elementsWrapper.find('.elements-filter').wrapAll('<div class="elements-filter-wrapper"/>').eq(0).parent();
 
         if (handler === 'isotope') {
             elementsParent.isotope({ itemSelector: '.elements-filter' });
