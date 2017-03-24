@@ -26,4 +26,4 @@ The filtering is done using Javascript and there are two handles provided out of
 
 This project has been created and is maintained by [Codefog](https://codefog.pl).
 
-Thanks to Kim Wormer form [heartcodiert](https://www.heartcodiert.de/) for sponsoring this extension!
+Thanks to Kim Wormer from [heartcodiert](https://www.heartcodiert.de/) for sponsoring this extension!
