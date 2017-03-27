@@ -22,7 +22,7 @@ class ContentDataContainer
 
             $GLOBALS['TL_DCA']['tl_content']['palettes'][$k] = str_replace(
                 'protected;',
-                'protected;{elementsFilter_legend},elementsFilter_filter;',
+                'protected;{elementsFilter_legend},elementsFilter_filters;',
                 $v
             );
         }
@@ -38,7 +38,9 @@ class ContentDataContainer
         $filters = [];
 
         foreach (FilterHelper::getArticleFilters(CURRENT_ID) as $filter) {
-            $filters[$filter['value']] = $filter['label'];
+            if ($filter['value']) {
+                $filters[$filter['value']] = $filter['label'];
+            }
         }
 
         return $filters;

@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_filters'] = [
                 'label'     => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_value'],
                 'exclude'   => true,
                 'inputType' => 'text',
-                'eval'      => ['style' => 'width:200px;'],
+                'eval'      => ['rgxp' => 'alias', 'style' => 'width:200px;'],
             ],
             'elementsFilter_filters_label'    => [
                 'label'     => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_label'],
@@ -57,7 +57,7 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_filters'] = [
                 'label'     => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_cssClass'],
                 'exclude'   => true,
                 'inputType' => 'text',
-                'eval'      => ['style' => 'width:200px;'],
+                'eval'      => ['style' => 'width:150px;'],
             ],
         ],
     ],

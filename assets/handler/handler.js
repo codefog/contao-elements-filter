@@ -1,7 +1,7 @@
 (function ($) {
-    function filterDefault(elementsContainer, value) {
-        elementsContainer.fadeOut(function () {
-            elementsContainer.children().each(function () {
+    function filterDefault(container, value) {
+        container.fadeOut(function () {
+            container.children().each(function () {
                 var el = $(this);
 
                 if (!value || el.hasClass(value)) {
@@ -11,12 +11,12 @@
                 }
             });
 
-            elementsContainer.fadeIn();
+            container.fadeIn();
         });
     }
 
-    function filterIsotope(elementsContainer, value) {
-        elementsContainer.isotope({
+    function filterIsotope(wrapper, value) {
+        wrapper.isotope({
             filter: function () {
                 return value ? $(this).hasClass(value) : true;
             }
@@ -26,15 +26,17 @@
     function init() {
         var filterContainer = $(this);
         var handler = filterContainer.data('handler');
-        var elementsContainer = $(filterContainer.data('elements'));
+        var elementsWrapper = $(filterContainer.data('elements'));
 
-        if (elementsContainer.length < 1) {
+        if (elementsWrapper.length < 1) {
             console.error('The element containing elements does not exist: ' + filterContainer.data('elements'));
             return;
         }
 
+        var elementsParent = elementsWrapper.find('.elements-filter').wrapAll('<div class="elements-filter-wrapper"/>').eq(0).parent();
+
         if (handler === 'isotope') {
-            elementsContainer.isotope();
+            elementsParent.isotope({ itemSelector: '.elements-filter' });
         }
 
         var filters = filterContainer.find('a');
@@ -53,9 +55,9 @@
             filter.addClass('active');
 
             if (handler === 'isotope') {
-                filterIsotope(elementsContainer, value);
+                filterIsotope(elementsParent, value);
             } else {
-                filterDefault(elementsContainer, value);
+                filterDefault(elementsParent, value);
             }
         });
     }
