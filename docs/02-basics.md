@@ -29,4 +29,4 @@ Once you got the filters ready, you can start assign the content elements to app
 A content element can belong to one or multiple filters. If the filters are not assigned at all
 then the content element will not be filtered. 
 
-![](element.png)
+![](images/element.png)
