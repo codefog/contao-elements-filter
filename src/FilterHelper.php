@@ -1,6 +1,6 @@
 <?php
 
-namespace ElementsFilter;
+namespace Codefog\ElementsFilter;
 
 use Contao\Database;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace ElementsFilter\EventListener;
+namespace Codefog\ElementsFilter\EventListener;
 
 use Contao\Template;
-use ElementsFilter\FilterHelper;
+use Codefog\ElementsFilter\FilterHelper;
 
 class TemplateListener
 {
