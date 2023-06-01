@@ -8,10 +8,6 @@
         {
             "name": "Codefog",
             "homepage": "https://codefog.pl"
-        },
-        {
-            "name": "heartcodiert",
-            "homepage": "https://www.heartcodiert.de/"
         }
     ],
     "require": {

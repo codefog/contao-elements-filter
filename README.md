@@ -1,29 +1,30 @@
-# Elements Filter extension for Contao Open Source CMS
+# Elements Filter Bundle for Contao Open Source CMS
 
 ![](https://img.shields.io/packagist/v/codefog/contao-elements-filter.svg)
 ![](https://img.shields.io/packagist/l/codefog/contao-elements-filter.svg)
 ![](https://img.shields.io/packagist/dt/codefog/contao-elements-filter.svg)
 
-Elements Filter is an extension for the [Contao Open Source CMS](https://contao.org).
+Elements Filter is a bundle for the [Contao Open Source CMS](https://contao.org).
 
-Contao extension that allows to setup content element filtering using Javascript. The predefined
-filters can be set up in the article settings and then the content elements inside that article
-can be marked to be filtered by specific values.
-
-The filtering is done using Javascript and there are two handles provided out of the box:
-
-1. Default handler (simple fade in/out effect)
-2. [Isotope](http://isotope.metafizzy.co/) by Metafizzy.co (may require a license)
+Contao bundle that allows configuring the predefined filter options in the article settings and assigning them 
+to content elements inside it. The frontend will display the filter panel that will filter elements in JavaScript.
 
 ![](docs/images/preview.png)
 
+## Installation
+
+The recommended way to install the extension is via Contao Manager.
+
+You can also install the bundle via Composer:
+
+```
+composer require codefog/contao-elements-filter
+```
+
 ## Documentation
 
-1. [Installation](docs/01-installation.md)
-2. [Basic configuration](docs/02-basics.md)
+[Read the documentation](docs/README.md)
 
 ## Copyright
 
 This project has been created and is maintained by [Codefog](https://codefog.pl).
-
-Thanks to Kim Wormer from [heartcodiert](https://www.heartcodiert.de/) for sponsoring this extension!
