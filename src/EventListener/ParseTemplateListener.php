@@ -41,14 +41,15 @@ class ParseTemplateListener
             $template->setName('mod_article_elements_filter');
         }
 
-        $template->elementsFilters = $this->filterHelper->getArticleFilters($template->id);
+        $collection = $this->filterHelper->getArticleFilterCollection($template->id);
+
+        $template->elementsFilters = $collection->hasGroups() ? $collection->allGrouped() : $collection->all();
+        $template->elementsFiltersGrouped = $collection->hasGroups();
         $template->elementsFiltersHandler = $template->elementsFilter_handler;
 
         // Add the handler assets
-        if (($assets = $this->filterHelper->getJavaScriptAssets($template->id)) !== null) {
-            foreach ($assets as $asset) {
-                $GLOBALS['TL_JAVASCRIPT'][] = $asset;
-            }
+        foreach ($this->filterHelper->getJavaScriptAssets($template->id) as $asset) {
+            $GLOBALS['TL_JAVASCRIPT'][] = $asset;
         }
     }
 

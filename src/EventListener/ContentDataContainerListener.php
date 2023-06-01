@@ -46,14 +46,26 @@ class ContentDataContainerListener
     {
         $articleId = Input::get('act') ? ContentModel::findByPk($dc->id)?->pid : $dc->id;
 
-        if (!$articleId) {
+        if (!$articleId || ($filterCollection = $this->filterHelper->getArticleFilterCollection($articleId)) === null) {
             return [];
         }
 
         $filters = [];
+        $currentGroup = null;
 
-        foreach ($this->filterHelper->getArticleFilters($articleId) as $filter) {
-            if ($filter['value']) {
+        foreach ($filterCollection->all() as $filter) {
+            if ($filter['group']) {
+                $currentGroup = $filter['label'];
+                continue;
+            }
+
+            if (!$filter['value']) {
+                continue;
+            }
+
+            if ($currentGroup !== null) {
+                $filters[$currentGroup][$filter['value']] = $filter['label'];
+            } else {
                 $filters[$filter['value']] = $filter['label'];
             }
         }

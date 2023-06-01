@@ -14,5 +14,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services
         ->load('Codefog\\ElementsFilterBundle\\', __DIR__ . '/../src')
+        ->exclude(__DIR__  .'/../src/FilterCollection.php')
     ;
 };

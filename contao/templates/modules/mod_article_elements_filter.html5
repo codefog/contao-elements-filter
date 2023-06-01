@@ -3,14 +3,37 @@
 <?php $this->block('content'); ?>
 
 <?php if ($this->elementsFilters): ?>
-    <div class="elements-filters" data-elements-filter-wrapper="elements-filter-wrapper-<?= $this->id ?>" data-elements-filter-handler="<?= $this->elementsFiltersHandler ?>">
-        <ul class="elements-filters__list">
-            <?php foreach ($this->elementsFilters as $filter): ?>
-                <li class="elements-filters__list-item<?php if ($filter['cssClass']): ?> <?= $filter['cssClass']; endif ?>">
-                    <a href="#" class="elements-filters__link" data-elements-filter-value="<?= $filter['value'] ?>"><?= $filter['label'] ?></a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+    <div class="elements-filters<?php if ($this->elementsFiltersGrouped): ?> elements-filters--grouped<?php endif; ?>"
+         data-elements-filter-wrapper="elements-filter-wrapper-<?= $this->id ?>"
+         data-elements-filter-handler="<?= $this->elementsFiltersHandler ?>"
+        <?php if ($this->elementsFiltersGrouped): ?> data-elements-filters-grouped<?php endif; ?>
+    >
+        <?php if ($this->elementsFiltersGrouped): ?>
+            <div class="elements-filters__groups">
+                <?php foreach ($this->elementsFilters as $group): ?>
+                    <fieldset class="elements-filters__group">
+                        <legend><?= $group['label'] ?></legend>
+
+                        <?php foreach ($group['options'] as $option): ?>
+                            <div class="elements-filters__option">
+                                <label class="elements-filters__option-label">
+                                    <input type="checkbox" value="<?= \Contao\StringUtil::specialchars($option['value']) ?>" data-elements-filter-value>
+                                    <span class="elements-filters__option-label-text"><?= $option['label'] ?></span>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </fieldset>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <ul class="elements-filters__list">
+                <?php foreach ($this->elementsFilters as $filter): ?>
+                    <li class="elements-filters__list-item<?php if ($filter['cssClass']): ?> <?= $filter['cssClass']; endif ?>">
+                        <a href="#" class="elements-filters__link" data-elements-filter-value="<?= $filter['value'] ?>"><?= $filter['label'] ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
     </div>
 <?php endif; ?>
 

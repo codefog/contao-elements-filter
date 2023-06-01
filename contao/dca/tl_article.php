@@ -54,6 +54,11 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_filters'] = [
                 'inputType' => 'text',
                 'eval' => ['style' => 'width:150px;'],
             ],
+            'elementsFilter_filters_group' => [
+                'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_group'],
+                'exclude' => true,
+                'inputType' => 'checkbox',
+            ],
         ],
     ],
     'sql' => ['type' => Types::BLOB, 'notnull' => false],

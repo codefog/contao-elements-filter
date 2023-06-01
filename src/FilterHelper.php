@@ -27,10 +27,10 @@ class FilterHelper
     /**
      * Get the JavaScript assets.
      */
-    public function getJavaScriptAssets(int $articleId): ?array
+    public function getJavaScriptAssets(int $articleId): array
     {
         if (!$this->isArticleEnabled($articleId)) {
-            return null;
+            return [];
         }
 
         $assets = [$this->packages->getUrl('frontend.js', 'codefog_elements_filter')];
@@ -43,19 +43,19 @@ class FilterHelper
     }
 
     /**
-     * Get the article filters
+     * Get the article filter collection.
      */
-    public function getArticleFilters(int $articleId): array
+    public function getArticleFilterCollection(int $articleId): ?FilterCollection
     {
         if (!$this->isArticleEnabled($articleId)) {
-            return [];
+            return null;
         }
 
         $filtersData = ArticleModel::findByPk($articleId)?->elementsFilter_filters;
         $filtersData = StringUtil::deserialize($filtersData);
 
         if (!is_array($filtersData) || empty($filtersData)) {
-            return [];
+            return null;
         }
 
         $filters = [];
@@ -65,9 +65,10 @@ class FilterHelper
                 'value' => $filter['elementsFilter_filters_value'],
                 'label' => $filter['elementsFilter_filters_label'],
                 'cssClass' => $filter['elementsFilter_filters_cssClass'],
+                'group' => (bool) ($filter['elementsFilter_filters_group'] ?? false),
             ];
         }
 
-        return $filters;
+        return new FilterCollection($filters);
     }
 }
