@@ -1,0 +1,9 @@
+{
+  "entrypoints": {
+    "frontend": {
+      "js": [
+        "/bundles/codefogelementsfilter/frontend.80ff4977.js"
+      ]
+    }
+  }
+}

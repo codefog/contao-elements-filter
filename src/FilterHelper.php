@@ -1,46 +1,42 @@
 <?php
 
-namespace Codefog\ElementsFilter;
+namespace Codefog\ElementsFilterBundle;
 
-use Contao\Database;
+use Contao\ArticleModel;
+use Contao\StringUtil;
+use Symfony\Component\Asset\Packages;
 
 class FilterHelper
 {
-    /**
-     * Return true if article is enabled for elements filter
-     *
-     * @param int $articleId
-     *
-     * @return bool
-     */
-    public static function isArticleEnabled($articleId)
+    public function __construct(private readonly Packages $packages)
     {
-        $article = Database::getInstance()->prepare("SELECT elementsFilter_enable FROM tl_article WHERE id=?")
-            ->execute($articleId);
-
-        return $article->elementsFilter_enable ? true : false;
     }
 
     /**
-     * Get the javascript handler assets
-     *
-     * @param int $articleId
-     *
-     * @return array|null
+     * Return true if the elements filter are enabled for given article ID.
      */
-    public static function getHandlerAssets($articleId)
+    public function isArticleEnabled(int $articleId): bool
     {
-        if (!static::isArticleEnabled($articleId)) {
+        if (!$articleId) {
+            return false;
+        }
+
+        return (bool) ArticleModel::findByPk($articleId)?->elementsFilter_enable;
+    }
+
+    /**
+     * Get the JavaScript assets.
+     */
+    public function getJavaScriptAssets(int $articleId): ?array
+    {
+        if (!$this->isArticleEnabled($articleId)) {
             return null;
         }
 
-        $assets = ['system/modules/elements-filter/assets/handler/handler.min.js'];
+        $assets = [$this->packages->getUrl('frontend.js', 'codefog_elements_filter')];
 
-        $article = Database::getInstance()->prepare("SELECT elementsFilter_handler FROM tl_article WHERE id=?")
-            ->execute($articleId);
-
-        if ($article->elementsFilter_handler === 'isotope') {
-            $assets[] = 'system/modules/elements-filter/assets/isotope/isotope.pkgd.min.js';
+        if (ArticleModel::findByPk($articleId)?->elementsFilter_handler === 'isotope') {
+            array_unshift($assets, $this->packages->getUrl('isotope.pkgd.min.js', 'codefog_elements_filter'));
         }
 
         return $assets;
@@ -48,25 +44,26 @@ class FilterHelper
 
     /**
      * Get the article filters
-     *
-     * @param int $articleId
-     *
-     * @return array
      */
-    public static function getArticleFilters($articleId)
+    public function getArticleFilters(int $articleId): array
     {
-        if (!static::isArticleEnabled($articleId)) {
+        if (!$this->isArticleEnabled($articleId)) {
+            return [];
+        }
+
+        $filtersData = ArticleModel::findByPk($articleId)?->elementsFilter_filters;
+        $filtersData = StringUtil::deserialize($filtersData);
+
+        if (!is_array($filtersData) || empty($filtersData)) {
             return [];
         }
 
         $filters = [];
-        $article = Database::getInstance()->prepare("SELECT elementsFilter_filters FROM tl_article WHERE id=?")
-            ->execute($articleId);
 
-        foreach (deserialize($article->elementsFilter_filters, true) as $filter) {
+        foreach ($filtersData as $filter) {
             $filters[] = [
-                'value'    => $filter['elementsFilter_filters_value'],
-                'label'    => $filter['elementsFilter_filters_label'],
+                'value' => $filter['elementsFilter_filters_value'],
+                'label' => $filter['elementsFilter_filters_label'],
                 'cssClass' => $filter['elementsFilter_filters_cssClass'],
             ];
         }

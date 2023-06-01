@@ -1,0 +1,21 @@
+<?php $this->extend('mod_article') ?>
+
+<?php $this->block('content'); ?>
+
+<?php if ($this->elementsFilters): ?>
+    <div class="elements-filters" data-elements-filter-wrapper="elements-filter-wrapper-<?= $this->id ?>" data-elements-filter-handler="<?= $this->elementsFiltersHandler ?>">
+        <ul class="elements-filters__list">
+            <?php foreach ($this->elementsFilters as $filter): ?>
+                <li class="elements-filters__list-item<?php if ($filter['cssClass']): ?> <?= $filter['cssClass']; endif ?>">
+                    <a href="#" class="elements-filters__link" data-elements-filter-value="<?= $filter['value'] ?>"><?= $filter['label'] ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<div id="elements-filter-wrapper-<?= $this->id ?>" class="elements-filters-wrapper">
+    <?= implode('', $this->elements) ?>
+</div>
+
+<?php $this->endblock(); ?>
