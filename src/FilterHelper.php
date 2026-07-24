@@ -6,9 +6,9 @@ use Contao\ArticleModel;
 use Contao\StringUtil;
 use Symfony\Component\Asset\Packages;
 
-class FilterHelper
+readonly class FilterHelper
 {
-    public function __construct(private readonly Packages $packages)
+    public function __construct(private Packages $packages)
     {
     }
 
@@ -62,10 +62,10 @@ class FilterHelper
 
         foreach ($filtersData as $filter) {
             $filters[] = [
-                'value' => $filter['elementsFilter_filters_value'],
-                'label' => $filter['elementsFilter_filters_label'],
-                'cssClass' => $filter['elementsFilter_filters_cssClass'],
-                'group' => (bool) ($filter['elementsFilter_filters_group'] ?? false),
+                'value' => $filter['value'],
+                'label' => $filter['label'],
+                'cssClass' => $filter['cssClass'],
+                'group' => (bool) ($filter['group'] ?? false),
             ];
         }
 

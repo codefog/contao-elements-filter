@@ -14,14 +14,12 @@ PaletteManipulator::create()
 
 // Fields
 $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_enable'] = [
-    'exclude' => true,
     'inputType' => 'checkbox',
     'eval' => ['submitOnChange' => true, 'tl_class' => 'clr'],
-    'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
+    'sql' => ['type' => Types::BOOLEAN, 'default' => 0],
 ];
 
 $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_handler'] = [
-    'exclude' => true,
     'inputType' => 'select',
     'options' => ['default', 'isotope'],
     'reference' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_handlerRef'],
@@ -30,36 +28,26 @@ $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_handler'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_article']['fields']['elementsFilter_filters'] = [
-    'exclude' => true,
-    'inputType' => 'multiColumnWizard',
-    'eval' => [
-        'mandatory' => true,
-        'tl_class' => 'clr',
-        'columnFields' => [
-            'elementsFilter_filters_value' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_value'],
-                'exclude' => true,
-                'inputType' => 'text',
-                'eval' => ['rgxp' => 'alias', 'style' => 'width:200px;'],
-            ],
-            'elementsFilter_filters_label' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_label'],
-                'exclude' => true,
-                'inputType' => 'text',
-                'eval' => ['style' => 'width:200px;'],
-            ],
-            'elementsFilter_filters_cssClass' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_cssClass'],
-                'exclude' => true,
-                'inputType' => 'text',
-                'eval' => ['style' => 'width:150px;'],
-            ],
-            'elementsFilter_filters_group' => [
-                'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_group'],
-                'exclude' => true,
-                'inputType' => 'checkbox',
-            ],
+    'inputType' => 'rowWizard',
+    'fields' => [
+        'value' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_value'],
+            'inputType' => 'text',
+            'eval' => ['rgxp' => 'alias'],
+        ],
+        'label' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_label'],
+            'inputType' => 'text',
+        ],
+        'cssClass' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_cssClass'],
+            'inputType' => 'text',
+        ],
+        'group' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_article']['elementsFilter_filters_group'],
+            'inputType' => 'checkbox',
         ],
     ],
+    'eval' => ['mandatory' => true, 'tl_class' => 'w50 clr'],
     'sql' => ['type' => Types::BLOB, 'notnull' => false],
 ];

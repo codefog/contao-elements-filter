@@ -1,0 +1,50 @@
+{% extends '@Contao/mod_article.html.twig' %}
+
+{% block content %}
+    {% if elementsFilters %}
+        {% set elements_filters_attributes = attrs()
+            .addClass('elements-filters')
+            .addClass('elements-filters--grouped', elementsFiltersGrouped)
+            .set('data-elements-filter-wrapper', 'elements-filter-wrapper-' ~ id)
+            .set('data-elements-filter-handler', elementsFiltersHandler)
+            .set('data-elements-filters-grouped', '', elementsFiltersGrouped)
+        %}
+        <div{{ elements_filters_attributes }}>
+            {% if elementsFiltersGrouped %}
+                <div class="elements-filters__groups">
+                    {% for group in elementsFilters %}
+                        <fieldset class="elements-filters__group">
+                            <legend>{{ group.label }}</legend>
+
+                            {% for option in group.options %}
+                                <div class="elements-filters__option">
+                                    <label class="elements-filters__option-label">
+                                        <input type="checkbox" value="{{ option.value }}" data-elements-filter-value>
+                                        <span class="elements-filters__option-label-text">{{ option.label }}</span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </fieldset>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <ul class="elements-filters__list">
+                    {% for filter in elementsFilters %}
+                        {% set elements_filters_list_item_attributes = attrs()
+                            .addClass(['elements-filters__list-item', filter.cssClass])
+                        %}
+                        <li{{ elements_filters_list_item_attributes }}>
+                            <a href="#" class="elements-filters__link" data-elements-filter-value="{{ filter.value }}">{{ filter.label }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div id="elements-filter-wrapper-{{ id }}" class="elements-filters-wrapper">
+        {% for element in elements %}
+            {{ element|raw }}
+        {% endfor %}
+</div>
+{% endblock %}

@@ -9,9 +9,9 @@ use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\Input;
 
-class ContentDataContainerListener
+readonly class ContentDataContainerListener
 {
-    public function __construct(private readonly FilterHelper $filterHelper)
+    public function __construct(private FilterHelper $filterHelper)
     {
     }
 
@@ -34,7 +34,7 @@ class ContentDataContainerListener
             }
 
             PaletteManipulator::create()
-                ->addLegend('elementsFilter_legend', 'protected_legend', PaletteManipulator::POSITION_AFTER)
+                ->addLegend('elementsFilter_legend', 'protected_legend')
                 ->addField('elementsFilter_filters', 'elementsFilter_legend', PaletteManipulator::POSITION_APPEND)
                 ->applyToPalette($k, $dc->table)
             ;

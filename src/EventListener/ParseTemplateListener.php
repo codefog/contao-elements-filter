@@ -7,15 +7,13 @@ use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\StringUtil;
 use Contao\Template;
 use Codefog\ElementsFilterBundle\FilterHelper;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 #[AsHook('parseTemplate')]
-class ParseTemplateListener
+readonly class ParseTemplateListener
 {
     public function __construct(
-        private readonly FilterHelper $filterHelper,
-        private readonly RequestStack $requestStack,
-        private readonly ScopeMatcher $scopeMatcher,
+        private FilterHelper $filterHelper,
+        private ScopeMatcher $scopeMatcher,
     )
     {
     }
@@ -29,8 +27,7 @@ class ParseTemplateListener
     private function handleArticleTemplate(Template $template): void
     {
         if (!str_starts_with($template->getName(), 'mod_article')
-            || ($request = $this->requestStack->getCurrentRequest()) === null
-            || !$this->scopeMatcher->isFrontendRequest($request)
+            || !$this->scopeMatcher->isFrontendRequest()
             || !$this->filterHelper->isArticleEnabled($template->id)
         ) {
             return;
@@ -56,8 +53,7 @@ class ParseTemplateListener
     private function handleElementTemplate(Template $template): void
     {
         if ((!str_starts_with($template->getName(), 'ce_') && !str_starts_with($template->getName(), 'rsce_'))
-            || ($request = $this->requestStack->getCurrentRequest()) === null
-            || !$this->scopeMatcher->isFrontendRequest($request)
+            || !$this->scopeMatcher->isFrontendRequest()
             || !$this->filterHelper->isArticleEnabled($template->pid)
             || !is_array($filters = StringUtil::deserialize($template->elementsFilter_filters))
             || empty($filters)
