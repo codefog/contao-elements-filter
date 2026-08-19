@@ -15,7 +15,7 @@ readonly class FilterHelper
     /**
      * Return true if the elements filter are enabled for given article ID.
      */
-    public function isArticleEnabled(int $articleId): bool
+    public function isArticleEnabled(int|null $articleId): bool
     {
         if (!$articleId) {
             return false;
@@ -27,7 +27,7 @@ readonly class FilterHelper
     /**
      * Get the JavaScript assets.
      */
-    public function getJavaScriptAssets(int $articleId): array
+    public function getJavaScriptAssets(int|null $articleId): array
     {
         if (!$this->isArticleEnabled($articleId)) {
             return [];
@@ -45,7 +45,7 @@ readonly class FilterHelper
     /**
      * Get the article filter collection.
      */
-    public function getArticleFilterCollection(int $articleId): ?FilterCollection
+    public function getArticleFilterCollection(int|null $articleId): ?FilterCollection
     {
         if (!$this->isArticleEnabled($articleId)) {
             return null;
