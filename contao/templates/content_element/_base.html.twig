@@ -1,0 +1,6 @@
+{% extends '@Contao/content_element/_base.html.twig' %}
+
+{% set attributes = attrs()
+    .mergeWith(elements_filter_attributes()|default)
+    .mergeWith(attributes|default)
+%}

@@ -1,35 +1,46 @@
 {
     "name": "codefog/contao-elements-filter",
-    "description": "elements-filter extension for Contao Open Source CMS",
+    "description": "Content Elements Filter extension for Contao Open Source CMS",
     "keywords": ["contao", "content", "elements", "filter"],
-    "type": "contao-module",
-    "license": "LGPL-3.0+",
+    "type": "contao-bundle",
+    "license": "MIT",
     "authors": [
         {
             "name": "Codefog",
             "homepage": "https://codefog.pl"
-        },
-        {
-            "name": "heartcodiert",
-            "homepage": "https://www.heartcodiert.de/"
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "contao/core-bundle": "~3.5 || ~4.1",
-        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
-        "menatwork/contao-multicolumnwizard": "~3.3"
+        "php": "^8.3",
+        "contao/core-bundle": "^5.7"
     },
-    "autoload":{
+    "require-dev": {
+        "contao/manager-plugin": "^2.0"
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "autoload": {
         "psr-4": {
-            "Codefog\\ElementsFilter\\": "src/"
+            "Codefog\\ElementsFilterBundle\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "contao-components/installer": true,
+            "contao/manager-plugin": true,
+            "php-http/discovery": true
         }
     },
     "extra": {
-        "contao": {
-            "sources": {
-                "": "system/modules/elements-filter"
-            }
-        }
+        "contao-manager-plugin": "Codefog\\ElementsFilterBundle\\ContaoManager\\Plugin"
+    },
+    "scripts": {
+        "all": [
+            "@ecs",
+            "@phpstan"
+        ],
+        "ecs": "@php tools/ecs/vendor/bin/ecs check src --config ecs.php --fix --ansi",
+        "phpstan": "@php tools/phpstan/vendor/bin/phpstan analyze --ansi"
     }
 }
